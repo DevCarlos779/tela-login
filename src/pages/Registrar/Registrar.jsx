@@ -1,24 +1,24 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import { FaUser, FaLock } from "react-icons/fa";
 
-import "./Login.css"
-
-function Login() {
+function Registrar({ handleSubmit}) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const submit = (e) => {
         e.preventDefault();
-        console.log("Envio");
+        handleSubmit(username, password)
+        
     }
+
 
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
-                <h1>Acesse o sistema</h1>
+            <form onSubmit={submit}>
+                <h1>Criar Conta</h1>
                 <div className="input_field">
                     <input type="email" placeholder="E-mail" required onChange={(e) => setUsername(e.target.value)}/>
                     <FaUser className="icon" />
@@ -28,26 +28,20 @@ function Login() {
                     <FaLock className="icon" />
                 </div>
 
-                <div className="recall-forget">
-                    <label htmlFor="">
-                        <input type="checkbox" />
-                        Lembre de mim
-                    </label>
-                    <a href="#">Esqueceu a senha?</a>
-                </div>
-
-                    <button>Entrar</button>
-
+                
+                <button type="submit">Registrar</button>
+                
+        
                 <div className="signup-link">
                     <p>
-                        Não tem uma conta?
-                        <Link to="/registrar">Registrar</Link>
+                        Já tem uma conta?
+                        <a href="#">Entrar</a>
                     </p>
                 </div>
-                
+                        
             </form>
         </div>
     )
 }
 
-export default Login;
+export default Registrar;
