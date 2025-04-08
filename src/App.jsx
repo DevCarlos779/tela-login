@@ -7,8 +7,19 @@ import Registrar from "./pages/Registrar/Registrar";
 
 function App() {
 
-  function createAcount(username, password) {
-    console.log("Conta criada" + username);
+  function createAcount(user) {
+    fetch('http://localhost:5000/users', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+  })
+      .then((resp) => resp.json())
+      .then((data) => {
+          //navigate("/projects",{ state: { message: 'Projeto criado com sucesso!' } })
+      })
+      .catch((err) => console.log(err))
   }
 
   return (

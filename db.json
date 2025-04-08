@@ -1,5 +1,9 @@
 {
-    "users": [
-        
-    ]
+  "users": [
+    {
+      "id": "e90a",
+      "password": "123",
+      "email": "carlos@gmail.com"
+    }
+  ]
 }

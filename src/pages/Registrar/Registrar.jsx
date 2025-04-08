@@ -4,13 +4,16 @@ import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 
 function Registrar({ handleSubmit}) {
+    
+    const [user, setUser] = useState({});
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const handleChange = (e) => {
+        setUser({...user, [e.target.name]: e.target.value})       
+    }
 
     const submit = (e) => {
         e.preventDefault();
-        handleSubmit(username, password)
+        handleSubmit(user)
         
     }
 
@@ -20,11 +23,11 @@ function Registrar({ handleSubmit}) {
             <form onSubmit={submit}>
                 <h1>Criar Conta</h1>
                 <div className="input_field">
-                    <input type="email" placeholder="E-mail" required onChange={(e) => setUsername(e.target.value)}/>
+                    <input name="email" type="email" placeholder="E-mail" required onChange={handleChange}/>
                     <FaUser className="icon" />
                 </div>
                 <div className="input_field">
-                    <input type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)}/>
+                    <input name="password" type="password" placeholder="Senha" onChange={handleChange}/>
                     <FaLock className="icon" />
                 </div>
 
@@ -35,7 +38,7 @@ function Registrar({ handleSubmit}) {
                 <div className="signup-link">
                     <p>
                         Já tem uma conta?
-                        <a href="#">Entrar</a>
+                        <Link to="/">Entrar</Link>
                     </p>
                 </div>
                         

@@ -5,19 +5,18 @@ import { FaUser, FaLock } from "react-icons/fa";
 
 import "./Login.css"
 
-function Login() {
+function Login({ handleSubmit }) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const submit = (e) => {
         e.preventDefault();
-        console.log("Envio");
     }
 
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submit}>
                 <h1>Acesse o sistema</h1>
                 <div className="input_field">
                     <input type="email" placeholder="E-mail" required onChange={(e) => setUsername(e.target.value)}/>
