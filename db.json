@@ -4,6 +4,16 @@
       "id": "e90a",
       "password": "123",
       "email": "carlos@gmail.com"
+    },
+    {
+      "id": "0bc2",
+      "email": "teste@gmail.com",
+      "password": "246"
+    },
+    {
+      "id": "1c4f",
+      "email": "carlos2@gmail.com",
+      "password": "123"
     }
   ]
 }

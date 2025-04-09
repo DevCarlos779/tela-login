@@ -1,11 +1,28 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import { FaUser, FaLock } from "react-icons/fa";
 
 function Registrar({ handleSubmit}) {
-    
+
+    const navigate = useNavigate();
+
+    const [users, setUsers] = useState([])
     const [user, setUser] = useState({});
+
+    useEffect(() => {
+        fetch('http://localhost:5000/users', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                setUsers(data);
+            })
+            .catch((err) => console.log(err))
+    }, [])
 
     const handleChange = (e) => {
         setUser({...user, [e.target.name]: e.target.value})       
@@ -13,7 +30,18 @@ function Registrar({ handleSubmit}) {
 
     const submit = (e) => {
         e.preventDefault();
-        handleSubmit(user)
+        
+       const usersExitent = users.filter((u) => u.email == user.email);
+
+        if(usersExitent.length == 0) {
+           console.log("usuario criado");
+           handleSubmit(user)
+           navigate("/",{ state: { message: 'usuario criado com sucesso!' } })  
+            
+        } else {
+            console.log("usuario ja existe");
+
+        }
         
     }
 

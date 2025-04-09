@@ -12,6 +12,8 @@ function Login({ handleSubmit }) {
 
     const submit = (e) => {
         e.preventDefault();
+        handleSubmit(username, password);
+        
     }
 
     return (
