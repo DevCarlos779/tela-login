@@ -7,8 +7,11 @@ function Registrar({ handleSubmit}) {
 
     const navigate = useNavigate();
 
+    const [message, setMessage] = useState("");
     const [users, setUsers] = useState([])
     const [user, setUser] = useState({});
+
+    
 
     useEffect(() => {
         fetch('http://localhost:5000/users', {
@@ -20,6 +23,7 @@ function Registrar({ handleSubmit}) {
             .then((resp) => resp.json())
             .then((data) => {
                 setUsers(data);
+                setMessage("");
             })
             .catch((err) => console.log(err))
     }, [])
@@ -28,18 +32,24 @@ function Registrar({ handleSubmit}) {
         setUser({...user, [e.target.name]: e.target.value})       
     }
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
+        
+        
         
        const usersExitent = users.filter((u) => u.email == user.email);
 
         if(usersExitent.length == 0) {
-           console.log("usuario criado");
-           handleSubmit(user)
-           navigate("/",{ state: { message: 'usuario criado com sucesso!' } })  
+            
+            let msg = "Usuario criado com sucesso";
+            let typeMsg = "sucess";
+            handleSubmit(user, msg, typeMsg)
+            navigate("/");
             
         } else {
             console.log("usuario ja existe");
+            setMessage("Email de Usuario Já está em uso!");
+            typeMsg = "error";
 
         }
         
@@ -59,6 +69,9 @@ function Registrar({ handleSubmit}) {
                     <FaLock className="icon" />
                 </div>
 
+                {message && (
+                    <p className="message">{message}</p>
+                )}
                 
                 <button type="submit">Registrar</button>
                 

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,11 +11,13 @@ import Logado from "./pages/Logado/Logado";
 
 function App() {
 
-  
+  const [type, setType] = useState("");
 
-  const [users, setUsers] = useState([])
+  const [message, setMessage] = useState("");
 
-  function createAcount(user) {
+  const [users, setUsers] = useState([]);
+
+  function createAcount(user, Message, typeMsg) {
     fetch('http://localhost:5000/users', {
       method: 'POST',
       headers: {
@@ -24,7 +27,8 @@ function App() {
   })
       .then((resp) => resp.json())
       .then((data) => {
-          //navigate("/projects",{ state: { message: 'Projeto criado com sucesso!' } })
+          setMessage(Message);
+          setType(typeMsg);
       })
       .catch((err) => console.log(err))
   }
@@ -44,6 +48,9 @@ function App() {
             if(user.email == username && user.password == password) {
                 console.log("usuario encontrado");
                 //Navegar para a pagina logado
+            } else {
+              setMessage("Usuario Não Existe");
+              setType("error");
             }
           })
       })
@@ -57,7 +64,7 @@ function App() {
         
 
           <Routes>
-            <Route exact path="/" element={<Login handleSubmit={verificarAcount} />}></Route>
+            <Route exact path="/" element={<Login message={message} type={type} handleSubmit={verificarAcount} />}></Route>
             <Route path="/registrar" element={<Registrar handleSubmit={createAcount}/>}></Route>
             <Route path="/logado" element={<Logado />}></Route>
             

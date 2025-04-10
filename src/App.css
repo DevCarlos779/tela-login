@@ -109,3 +109,19 @@
     text-shadow: none;
 }
 
+.message {
+    text-align: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    text-shadow: none;
+    font-weight: bold;
+}
+
+.sucess {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+

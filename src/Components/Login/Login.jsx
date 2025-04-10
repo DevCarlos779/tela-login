@@ -5,7 +5,7 @@ import { FaUser, FaLock } from "react-icons/fa";
 
 import "./Login.css"
 
-function Login({ handleSubmit }) {
+function Login({ message, type,handleSubmit }) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -37,7 +37,11 @@ function Login({ handleSubmit }) {
                     <a href="#">Esqueceu a senha?</a>
                 </div>
 
-                    <button>Entrar</button>
+                {message && (
+                    <p className={`message ${type}`}>{message}</p>
+                )}
+
+                <button>Entrar</button>
 
                 <div className="signup-link">
                     <p>
