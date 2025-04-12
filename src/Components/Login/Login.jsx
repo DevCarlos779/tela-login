@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { FaUser, FaLock } from "react-icons/fa";
 
@@ -13,7 +13,7 @@ function Login({ Message, type, handleSubmit }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const location = useLocation();
+    const navigate = useNavigate();
 
     if(location.state) {
         setMessage(location.state.message);
@@ -46,6 +46,7 @@ function Login({ Message, type, handleSubmit }) {
 
         if(emailExistent.length > 0 && emailExistent[0].password == password) {
             handleSubmit(username, password);
+            navigate("/logado");
             setMessage("");
         } else if(emailExistent.length > 0 && emailExistent[0].password != password) {
             setMessage("Senha Incorreta");
