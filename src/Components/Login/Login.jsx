@@ -1,18 +1,60 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import { FaUser, FaLock } from "react-icons/fa";
 
 import "./Login.css"
 
-function Login({ message, type,handleSubmit }) {
+function Login({ Message, type, handleSubmit }) {
 
+    const [users, setUsers] = useState([]);
+    const [Type, setType] = useState("");
+    const [message, setMessage] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const location = useLocation();
+
+    if(location.state) {
+        setMessage(location.state.message);
+    }
+
+    useEffect(() => {
+            fetch('http://localhost:5000/users', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((resp) => resp.json())
+                .then((data) => {
+                    setUsers(data);
+                    setMessage(Message);
+                    setType(type);
+                })
+                .catch((err) => console.log(err))
+        }, [])
+
     const submit = (e) => {
         e.preventDefault();
-        handleSubmit(username, password);
+        const emailExistent = users.filter((u) => {
+            if(u.email == username) {
+                return u;
+            }      
+            
+        })
+
+        if(emailExistent.length > 0 && emailExistent[0].password == password) {
+            handleSubmit(username, password);
+            setMessage("");
+        } else if(emailExistent.length > 0 && emailExistent[0].password != password) {
+            setMessage("Senha Incorreta");
+            setType("error");
+        } else {
+            setMessage("Usuario não existe");
+            setType("error");
+        }
+        
         
     }
 
@@ -38,7 +80,7 @@ function Login({ message, type,handleSubmit }) {
                 </div>
 
                 {message && (
-                    <p className={`message ${type}`}>{message}</p>
+                    <p className={`message ${Type}`}>{message}</p>
                 )}
 
                 <button>Entrar</button>

@@ -8,10 +8,9 @@ function Registrar({ handleSubmit}) {
     const navigate = useNavigate();
 
     const [message, setMessage] = useState("");
+    const [type, setType] = useState("");
     const [users, setUsers] = useState([])
     const [user, setUser] = useState({});
-
-    
 
     useEffect(() => {
         fetch('http://localhost:5000/users', {
@@ -35,21 +34,20 @@ function Registrar({ handleSubmit}) {
     const submit = async (e) => {
         e.preventDefault();
         
-        
-        
        const usersExitent = users.filter((u) => u.email == user.email);
 
         if(usersExitent.length == 0) {
             
             let msg = "Usuario criado com sucesso";
-            let typeMsg = "sucess";
-            handleSubmit(user, msg, typeMsg)
+            handleSubmit(user, msg);
             navigate("/");
             
         } else {
             console.log("usuario ja existe");
+            setType("error")
             setMessage("Email de Usuario Já está em uso!");
-            typeMsg = "error";
+            // typeMsg = "error";
+            
 
         }
         
@@ -70,7 +68,7 @@ function Registrar({ handleSubmit}) {
                 </div>
 
                 {message && (
-                    <p className="message">{message}</p>
+                    <p className={`message ${type}`}>{message}</p>
                 )}
                 
                 <button type="submit">Registrar</button>

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import './App.css'
@@ -17,7 +17,23 @@ function App() {
 
   const [users, setUsers] = useState([]);
 
-  function createAcount(user, Message, typeMsg) {
+  useEffect(() => {
+    fetch('http://localhost:5000/users', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+    })
+    .then((resp) => resp.json())
+    .then((data) => {
+        setUsers(data);
+    })
+    .catch((err) => console.log(err))
+  }, [])
+
+  
+
+  function createAcount(user, Message) {
     fetch('http://localhost:5000/users', {
       method: 'POST',
       headers: {
@@ -27,34 +43,21 @@ function App() {
   })
       .then((resp) => resp.json())
       .then((data) => {
-          setMessage(Message);
-          setType(typeMsg);
+        alert(Message);
       })
       .catch((err) => console.log(err))
   }
 
   function verificarAcount(username, password) {
+
+    users.map((user) => {
+      if(user.email == username && user.password == password) {
+          console.log("usuario encontrado");
+          //Navegar para a pagina logado
+      }
+      
+    })
     
-    fetch('http://localhost:5000/users', {
-      method: 'GET',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-  })
-      .then((resp) => resp.json())
-      .then((data) => {
-          setUsers(data);
-          users.map((user) => {
-            if(user.email == username && user.password == password) {
-                console.log("usuario encontrado");
-                //Navegar para a pagina logado
-            } else {
-              setMessage("Usuario Não Existe");
-              setType("error");
-            }
-          })
-      })
-      .catch((err) => console.log(err))
   }
 
   return (
