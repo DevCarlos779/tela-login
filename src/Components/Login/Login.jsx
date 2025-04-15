@@ -64,7 +64,7 @@ function Login({ Message, type, handleSubmit }) {
             <form onSubmit={submit}>
                 <h1>Acesse o sistema</h1>
                 <div className="input_field">
-                    <input type="email" placeholder="E-mail" required onChange={(e) => setUsername(e.target.value)}/>
+                    <input type="email" placeholder="Email" required onChange={(e) => setUsername(e.target.value)}/>
                     <FaUser className="icon" />
                 </div>
                 <div className="input_field">

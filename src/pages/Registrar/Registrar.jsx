@@ -59,7 +59,7 @@ function Registrar({ handleSubmit}) {
             <form onSubmit={submit}>
                 <h1>Criar Conta</h1>
                 <div className="input_field">
-                    <input name="email" type="email" placeholder="E-mail" required onChange={handleChange}/>
+                    <input name="email" type="email" placeholder="Email" required onChange={handleChange}/>
                     <FaUser className="icon" />
                 </div>
                 <div className="input_field">
