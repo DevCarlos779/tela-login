@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { FaUser, FaLock } from "react-icons/fa";
 
-function Registrar({ handleSubmit}) {
+function Registrar({ handleSubmit }) {
 
     const navigate = useNavigate();
 

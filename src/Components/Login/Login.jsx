@@ -5,7 +5,7 @@ import { FaUser, FaLock } from "react-icons/fa";
 
 import "./Login.css"
 
-function Login({ Message, type, handleSubmit }) {
+function Login({ handleSubmit }) {
 
     const [users, setUsers] = useState([]);
     const [Type, setType] = useState("");

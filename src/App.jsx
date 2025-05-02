@@ -11,10 +11,6 @@ import Logado from "./pages/Logado/Logado";
 
 function App() {
 
-  const [type, setType] = useState("");
-
-  const [message, setMessage] = useState("");
-
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -67,7 +63,7 @@ function App() {
         
 
           <Routes>
-            <Route exact path="/" element={<Login message={message} type={type} handleSubmit={verificarAcount} />}></Route>
+            <Route exact path="/" element={<Login handleSubmit={verificarAcount} />}></Route>
             <Route path="/registrar" element={<Registrar handleSubmit={createAcount}/>}></Route>
             <Route path="/logado" element={<Logado />}></Route>
             
